@@ -8,7 +8,7 @@ Laura's Python Bikeshare Program
 This is an interactive program in which a user can learn statistics about bike usage in Chicago, Washington, and New York City. It is part of the programming for data science nanodegree program that includes Postgre SQL, Python programming with numpy and pandas.
 
 ### Files used
-Files used include python_bikeshare.py.
+Files used include python_bikeshare.py as well as cvs files that included data about each city.
 
 ### Credits
 All credits are listed in the program, including my mentor Raheel from this Udacity nanodegree program.

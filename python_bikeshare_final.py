@@ -39,7 +39,7 @@ def get_filters():
     
     # TO DO: get user input for month (all, january, february, ... , june)
     filter = input("Would you like to filter by day, month or all? ")
-   
+   # The following code was modified with the assistance of my Udacity code mentor @RaheelK
     if filter == "day":
         day = input("Please enter a day of the week: Monday through Sunday or all for no day filter: ").lower()
         month = "all"
@@ -87,10 +87,10 @@ def load_data(city, month, day):
     
     return df
 
-def time_stats(df):
+def time_stats(df, city):
     """Displays statistics on the most frequent times of travel."""
 
-    print('\nCalculating The Most Frequent Times of Travel...\n')
+    print('\nCalculating The Most Frequent Times of Travel in {}...\n'.format(city.title()))
     start_time = time.time()
     
     # TO DO: display the most common month
@@ -109,7 +109,7 @@ def time_stats(df):
     else:
         most_common_month = "June"
     
-    print("The most common month is {}.".format(most_common_month))
+    print("The most common month is is {}.".format(most_common_month))
 
     # TO DO: display the most common day of week
     most_common_day = df["day_of_week"].mode()[0]
@@ -122,10 +122,10 @@ def time_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-def station_stats(df):
+def station_stats(df, city):
     """Displays statistics on the most popular stations and trip."""
 
-    print('\nCalculating The Most Popular Stations and Trip...\n')
+    print('\nCalculating The Most Popular Stations and Trip in {}...\n'.format(city.title()))
     start_time = time.time()
 
     # TO DO: display most commonly used start station
@@ -143,10 +143,10 @@ def station_stats(df):
     print('-'*40)
 
 
-def trip_duration_stats(df):
+def trip_duration_stats(df, city):
     """Displays statistics on the total and average trip duration."""
 
-    print('\nCalculating Trip Duration...\n')
+    print('\nCalculating Trip Duration in {}...\n'.format(city.title()))
     start_time = time.time()
 
     # TO DO: display total travel time
@@ -168,12 +168,11 @@ def trip_duration_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-
-
-def user_stats(df):
+    
+def user_stats(df, city):
     """Displays statistics on bikeshare users."""
 
-    print('\nCalculating User Stats...\n')
+    print('\nCalculating User Stats in {}...\n'.format(city.title()))
     start_time = time.time()
 
     # TO DO: Display counts of user types
@@ -181,6 +180,8 @@ def user_stats(df):
     print("The user types include the following: {}.".format(user_types))
     
     # TO DO: Display counts of gender
+    # TO DO: Display earliest, most recent, and most common year of birth
+    # My Udacity code mentor @RaheelK provided guidance in terms of how the Washington data was different. The following code is my own. @RaheelK recommended if / else statements, but I opted for try / except to gain some practice in this area and was pleased to see that the code worked.
     try:
         gender_types = df["Gender"].value_counts()
         earliest_birth_year = int(df["Birth Year"].min())
@@ -189,24 +190,42 @@ def user_stats(df):
         print("The gender counts include the following {}.".format(gender_types))
         print("The earliest, most recent and most common birth years are as follows: {}, {} and {}.".format(earliest_birth_year, most_recent_birth_year, most_common_birth_year))
     except:
-        pass   
-    # TO DO: Display earliest, most recent, and most common year of birth
+        print("Please note: there are no gender or birth year statistics available for {}.".format(city.title()))
  
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
+    
+def raw_data(df, city):
+    i = 0
+    display_data = input("Would you like to display some data from the file? Data is displayed five lines at a time. Enter yes or no: ").lower()
+    while True:   
+        if display_data.lower() != "yes":
+            break
+        else:
+            print("Now printing five lines from the {} raw data...".format(city.title()))
+            """
+            The following article on loc / iloc was instrumental in helping me to solve this challenge:
+            https://www.shanelynn.ie/select-pandas-dataframe-rows-and-columns-using-iloc-loc-and-ix/#iloc-selection
+            """
+            print(df.iloc[i:i + 5])
+            i += 5
 
+            display_data = input("Would you like to display five more lines from this file? Enter yes or no: ").lower()
+    
 def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
 
-        time_stats(df)
-        station_stats(df)
-        trip_duration_stats(df)
-        user_stats(df)
-
+        time_stats(df, city)
+        station_stats(df, city)
+        trip_duration_stats(df, city)
+        user_stats(df, city)
+        raw_data(df, city)
+        
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
+            print("Thank you for using this program.")
             break
             
 if __name__ == "__main__":

@@ -182,6 +182,7 @@ def user_stats(df, city):
     # TO DO: Display counts of gender
     # TO DO: Display earliest, most recent, and most common year of birth
     # My Udacity code mentor @RaheelK provided guidance in terms of how the Washington data was different. The following code is my own. @RaheelK recommended if / else statements, but I opted for try / except to gain some practice in this area and was pleased to see that the code worked.
+    #try / except blocks are necessary because the file for the city of Washington does not include gender or birth years
     try:
         gender_types = df["Gender"].value_counts()
         earliest_birth_year = int(df["Birth Year"].min())

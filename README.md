@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-# python-bikeshare-project
-||||||| merged common ancestors
-=======
+# Python Bike Share Project
+
 ### Date created
 This project was created on February 19, 2019 as was the README file.
 
@@ -15,6 +13,4 @@ This is an interactive program in which a user can learn statistics about bike u
 Files used include python_bikeshare.py as well as cvs files that included data about each city.
 
 ### Credits
-All credits are listed in the program, including my mentor Raheel from this Udacity nanodegree program.
-
->>>>>>> documentation
+All credits are listed as comments in the program.
